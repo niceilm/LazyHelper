@@ -1,0 +1,33 @@
+{
+  "name": "LazyHelper",
+  "main": "LazyHelper.js",
+  "version": "0.0.1",
+  "authors": [
+    "niceilm@naver.com"
+  ],
+  "description": "ocLazyLoad Helper",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "ocLazyLoad",
+    "angularjs",
+    "requirejs",
+    "lazyloading"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/niceilm/LazyHelper",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec"
+  ],
+  "dependencies": {
+    "angular": "^1.4.0",
+    "oclazyload": "^1.0.0"
+  },
+  "resolutions": {
+    "angular": "^1.4.0"
+  }
+}
