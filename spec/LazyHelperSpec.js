@@ -69,6 +69,11 @@ describe('LazyHelper', function() {
         var filename = LazyHelper.normalizeFileUrl("//test/test.js", "dummy", "/");
         expect(filename).toEqual("//test/test.js?v=dummy");
       });
+
+      it('이미 version값이 붙은 경우', function() {
+        var filename = LazyHelper.normalizeFileUrl("test.js?v=dummy2", "dummy", "/");
+        expect(filename).toEqual("/test.js?v=dummy2");
+      });
     });
   });
 });

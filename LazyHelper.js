@@ -94,12 +94,11 @@
    */
   function normalizeFileUrl(filename, dummyValue, prefixFilePath) {
     prefixFilePath = prefixFilePath || "/";
-    var urlArgs = 'v=' + (dummyValue || new Date().getTime());
+    var urlArgs = filename.indexOf('?') === -1 ? '?v=' + (dummyValue || new Date().getTime()) : "";
     var rxFileMatch = /^\/|^http/;
-
     if(rxFileMatch.test(filename)) {
-      return filename + "?" + urlArgs;
+      return filename + urlArgs;
     }
-    return prefixFilePath + filename + "?" + urlArgs;
+    return prefixFilePath + filename + urlArgs;
   }
 })(window);
