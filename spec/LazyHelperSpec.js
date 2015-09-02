@@ -142,4 +142,19 @@ describe('fl.lazyLoadHelper', function() {
       expect(filename).toEqual("/prefixFilePath/test.js?v=dummy2");
     });
   });
+
+  describe('filter', function() {
+    var $lazyLoadHelper = {};
+    beforeEach(module('fl.lazyLoadHelper', function($lazyLoadHelperProvider) {
+      $lazyLoadHelperProvider.setDefaultOptions({filePath: "/prefixFilePath", urlArg: 'dummy2'});
+    }));
+    beforeEach(inject(function(_$lazyLoadHelper_) {
+      $lazyLoadHelper = _$lazyLoadHelper_;
+    }));
+
+    it('normalizeFileUrl', inject(function(normalizeFileUrlFilter) {
+      expect(normalizeFileUrlFilter("test.js")).toBe('/prefixFilePath/test.js?v=dummy2');
+      expect(normalizeFileUrlFilter("/test.js")).toBe('/test.js?v=dummy2');
+    }));
+  });
 });

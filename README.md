@@ -1,6 +1,7 @@
 # LazyHelper
 https://oclazyload.readme.io/ helper
 
+## with ui-router
 ```
 angular.module('someApp', [
   'ui.router',
@@ -36,11 +37,19 @@ angular.module('someApp', [
 }]);
 ```
 
+## with filter
+```
+    <md-dialog-content layout="column">
+      <ng-include src="'views/form.tpl'|normalizeFileUrl"></ng-include>
+    </md-dialog-content>
+
+```
 # Test
 
 ## install karma
 ```
-npm install karma -g
+npm install -g karma-cli karma-jasmine karma-chrome-launcher
+bower install
 ```
 
 ## test

@@ -119,4 +119,10 @@
       return (filePath || options.filePath) + filename + urlArgs;
     }
   });
+
+  angular.module('fl.lazyLoadHelper').filter('normalizeFileUrl', ['$lazyLoadHelper', function($lazyLoadHelper) {
+    return function(value) {
+      return $lazyLoadHelper._normalizeFileUrl(value);
+    }
+  }]);
 })();
