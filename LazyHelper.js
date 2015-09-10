@@ -132,7 +132,6 @@
 
   function config($stateProvider, $lazyLoadHelperProvider) {
     $stateProvider.decorator('views', function($state, parent) {
-      console.log("decorator : views", arguments);
       var result = {},
         views = parent($state);
 
