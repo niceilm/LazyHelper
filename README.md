@@ -7,15 +7,29 @@ angular.module('someApp', [
   'ui.router',
   'fl.lazyLoadHelper'
 ]).config(['$stateProvider', '$lazyLoadHelperProvider', function($stateProvider, $lazyLoadHelperProvider){
+  var modules = {
+    grid: [
+      {name: 'ui.grid', files: ['lib/angular-ui-grid/ui-grid.js', 'lib/angular-ui-grid/ui-grid.css']},
+      {name: 'ui.grid.infiniteScroll', files: 'lib/angular-ui-grid/ui-grid.js'},
+      {name: 'ui.grid.pagination', files: 'lib/angular-ui-grid/ui-grid.js'},
+      {name: 'ui.grid.edit', files: 'lib/angular-ui-grid/ui-grid.js'},
+      {name: 'ui.grid.cellNav', files: 'lib/angular-ui-grid/ui-grid.js'},
+      {name: 'ui.grid.autoResize', files: 'lib/angular-ui-grid/ui-grid.js'},
+      {name: 'ui.grid.resizeColumns', files: 'lib/angular-ui-grid/ui-grid.js'},
+      {name: 'ui.grid.selection', files: 'lib/angular-ui-grid/ui-grid.js'}
+    ],
+    infiniteScroll: {name: 'infinite-scroll', files: 'lib/ngInfiniteScroll/ng-infinite-scroll.js'}
+  };
   $lazyLoadHelperProvider.setOptions({
-    urlArg : new Date().getTime()
+    urlArg : new Date().getTime(),
+    modules : modules
   });
   $stateProvider
     .state('home', {
       url: '/home',
       templateUrl: 'views/home.tpl',
       controller: 'HomeController',
-      lazyModules: ['controllers/HomeController.js', modules.carousel]
+      lazyModules: ['controllers/HomeController.js', modules.infiniteScroll]
     })
 
     .state('login', {

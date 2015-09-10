@@ -4,7 +4,8 @@
   angular.module('fl.lazyLoadHelper').provider('$lazyLoadHelper', function() {
     var options = {
       filePath: "/",
-      urlArg: new Date().getTime()
+      urlArg: new Date().getTime(),
+      modules: {}
     };
 
     this.setDefaultOptions = function(newOptions) {
@@ -19,6 +20,7 @@
 
     this.$get = [function() {
       return {
+        modules: options.modules,
         makeBundle: makeBundle,
         // for test don't use direct
         _normalizeModules: normalizeModules,
