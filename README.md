@@ -8,19 +8,9 @@ angular.module('someApp', [
   'fl.lazyLoadHelper'
 ]).config(['$stateProvider', '$lazyLoadHelperProvider', function($stateProvider, $lazyLoadHelperProvider){
   $lazyLoadHelperProvider.setOptions({
-    urlArg : __meteor_runtime_config__.autoupdateVersion
+    urlArg : new Date().getTime()
   });
   $stateProvider
-    .decorator('views', function($state, parent) {
-      var result = {},
-        views = parent($state);
-
-      angular.forEach(views, function(config, name) {
-        var resolver = $lazyLoadHelperProvider.makeBundle(config);
-        result[name] = resolver;
-      });
-      return result;
-    })
     .state('home', {
       url: '/home',
       templateUrl: 'views/home.tpl',
