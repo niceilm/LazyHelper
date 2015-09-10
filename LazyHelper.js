@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('fl.lazyLoadHelper', ['oc.lazyLoad']);
+  angular.module('fl.lazyLoadHelper', ['oc.lazyLoad', 'ui.router']).config(config);
   angular.module('fl.lazyLoadHelper').provider('$lazyLoadHelper', function() {
     var options = {
       filePath: "/",
@@ -125,4 +125,19 @@
       return $lazyLoadHelper._normalizeFileUrl(value);
     }
   }]);
+
+  config.$inject = ["$stateProvider", "$lazyLoadHelperProvider"];
+
+  function config($stateProvider, $lazyLoadHelperProvider) {
+    $stateProvider.decorator('views', function($state, parent) {
+      console.log("decorator : views", arguments);
+      var result = {},
+        views = parent($state);
+
+      angular.forEach(views, function(config, name) {
+        result[name] = $lazyLoadHelperProvider.makeBundle(config);
+      });
+      return result;
+    });
+  }
 })();
