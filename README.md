@@ -20,10 +20,20 @@ angular.module('someApp', [
     ],
     infiniteScroll: {name: 'infinite-scroll', files: 'lib/ngInfiniteScroll/ng-infinite-scroll.js'}
   };
+
   $lazyLoadHelperProvider.setOptions({
     urlArg : new Date().getTime(),
-    modules : modules
+    modules : modules,
+    filePath: "/",
+    resolve:{
+      someResolve:["$timeout", function($timeout){
+        console.log("wait some time");
+        return $timeout(function(){
+        }, 1000);
+      }]
+    }
   });
+
   $stateProvider
     .state('home', {
       url: '/home',

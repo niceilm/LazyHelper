@@ -1,12 +1,13 @@
 (function() {
   'use strict';
+  var options = {
+    filePath: "/",
+    urlArg: new Date().getTime(),
+    modules: {},
+    resolve: null
+  };
   angular.module('fl.lazyLoadHelper', ['oc.lazyLoad', 'ui.router']).config(config);
   angular.module('fl.lazyLoadHelper').provider('$lazyLoadHelper', function() {
-    var options = {
-      filePath: "/",
-      urlArg: new Date().getTime(),
-      modules: {}
-    };
 
     this.setDefaultOptions = function(newOptions) {
       newOptions = newOptions || {};
@@ -136,8 +137,15 @@
         views = parent($state);
 
       angular.forEach(views, function(config, name) {
-        result[name] = $lazyLoadHelperProvider.makeBundle(config);
+        var resolver = $lazyLoadHelperProvider.makeBundle(config);
+
+        angular.forEach(options.resolve, function(value, key) {
+          resolver.resolve[key] = value;
+        });
+
+        result[name] = resolver;
       });
+
       return result;
     });
   }

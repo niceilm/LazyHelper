@@ -143,6 +143,62 @@ describe('fl.lazyLoadHelper', function() {
     });
   });
 
+  describe('modules option test', function() {
+    var $lazyLoadHelper = {};
+    beforeEach(module('fl.lazyLoadHelper', function($lazyLoadHelperProvider) {
+      $lazyLoadHelperProvider.setDefaultOptions({
+        filePath: "/prefixFilePath",
+        urlArg: 'dummy2',
+        modules: {
+          "someNameModule": ["test"]
+        }
+      });
+    }));
+    beforeEach(inject(function(_$lazyLoadHelper_) {
+      $lazyLoadHelper = _$lazyLoadHelper_;
+    }));
+
+    it('모듈 값을 넘긴 경우', function() {
+      expect($lazyLoadHelper.modules).toBeDefined();
+      expect($lazyLoadHelper.modules.someNameModule).toBeDefined();
+    });
+  });
+
+  describe('resolve option test', function() {
+    var $lazyLoadHelper = {};
+    var $state = {};
+    var isCall = false;
+    beforeEach(module('fl.lazyLoadHelper', ['$lazyLoadHelperProvider', '$stateProvider', function($lazyLoadHelperProvider, $stateProvider) {
+      console.log($stateProvider);
+      $lazyLoadHelperProvider.setDefaultOptions({
+        filePath: "/prefixFilePath",
+        urlArg: 'dummy2',
+        resolve: {
+          "someMethod": [function() {
+            isCall = true;
+          }]
+        }
+      });
+      $stateProvider
+        .state('test', {
+          url: '/',
+          templateUrl: 'views/home.tpl',
+          controller: 'HomeController',
+          lazyModules: ['controllers/HomeController.js']
+        })
+    }]));
+    beforeEach(inject(function(_$lazyLoadHelper_, _$state_) {
+      $lazyLoadHelper = _$lazyLoadHelper_;
+      $state = _$state_;
+    }));
+
+    it('모듈 값을 넘긴 경우', function() {
+      expect(isCall).toBe(false);
+      $state.go("test");
+      expect(isCall).toBe(true);
+    });
+  });
+
   describe('filter', function() {
     var $lazyLoadHelper = {};
     beforeEach(module('fl.lazyLoadHelper', function($lazyLoadHelperProvider) {
