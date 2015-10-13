@@ -1,3 +1,6 @@
+# deprecated
+use fl.lazy [https://github.com/niceilm/fl.lazy](https://github.com/niceilm/fl.lazy)
+
 # LazyHelper
 https://oclazyload.readme.io/ helper
 
